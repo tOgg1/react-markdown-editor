@@ -1,17 +1,22 @@
 import {React} from 'react';
-import Codemirror from 'codemirror';
+import CodeMirror from 'codemirror';
 
 export class MarkdownEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.editor = undefined;
+    this.editorNode = undefined;
   }
   componentDidMount() {
-
+    this.editorNode = CodeMirror.fromTextArea(this.textEditor, this.props.codeMirrorOptions);
   }
   getClasses() {
     return {
-
+      preview: [
+        ...this.props.previewClasses, 'markdowneditor__preview',
+      ].join(''),
+      outer: [
+        ...this.props.outerClasses, 'markdowneditor__outer',
+      ].join(''),
     };
   }
   getStyles() {
@@ -20,11 +25,17 @@ export class MarkdownEditor extends React.Component {
     };
   }
   render() {
-    let classes = this.getClasses();
-    let styles = this.props.defaultStylingDisabled ? {} : this.getStyles();
+    const classes = this.getClasses();
+    const styles = this.props.defaultStylingDisabled ? {} : this.getStyles();
+    const preview = this.props.displayPreview ? (
+      <div className={classes.preview}>
+        <div style={styles.emptyPreview}><h2>Empty</h2></div>
+      </div>
+    ) : undefined;
     return (
       <div className={classes.outer} styles={styles.outer}>
-        <textarea ref={(textarea) => this.textArea = textarea} id="" cols="30" rows="10"></textarea>
+        <textarea className={classes.cmeditor} ref={(textarea) => this.textArea = textarea} id="" />
+        {preview}
       </div>
     );
   }
@@ -32,9 +43,17 @@ export class MarkdownEditor extends React.Component {
 
 
 MarkdownEditor.propTypes = {
-  defaultStylingDisabled: React.PropTypes.bool
+  codeMirrorOptions: React.PropTypes.object,
+  defaultStylingDisabled: React.PropTypes.bool,
+  displayPreview: React.PropTypes.bool,
+  outerClasses: React.PropTypes.arrayOf(React.PropTypes.string),
+  previewClasses: React.PropTypes.arrayOf(React.PropTypes.string),
 };
 
 MarkdownEditor.defaultProps = {
-  defaultStylingDisabled: false
+  defaultStylingDisabled: false,
+  codeMirrorOptions: {},
+  displayPreview: true,
+  outerClasses: [''],
+  previewClasses: [''],
 };

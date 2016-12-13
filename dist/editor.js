@@ -75,6 +75,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -89,17 +91,22 @@
 
 	    var _this = _possibleConstructorReturn(this, (MarkdownEditor.__proto__ || Object.getPrototypeOf(MarkdownEditor)).call(this, props));
 
-	    _this.editor = undefined;
+	    _this.editorNode = undefined;
 	    return _this;
 	  }
 
 	  _createClass(MarkdownEditor, [{
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
+	    value: function componentDidMount() {
+	      this.editorNode = _codemirror2.default.fromTextArea(this.textEditor, this.props.codeMirrorOptions);
+	    }
 	  }, {
 	    key: 'getClasses',
 	    value: function getClasses() {
-	      return {};
+	      return {
+	        preview: [].concat(_toConsumableArray(this.props.previewClasses), ['markdowneditor__preview']).join(''),
+	        outer: [].concat(_toConsumableArray(this.props.outerClasses), ['markdowneditor__outer']).join('')
+	      };
 	    }
 	  }, {
 	    key: 'getStyles',
@@ -113,12 +120,26 @@
 
 	      var classes = this.getClasses();
 	      var styles = this.props.defaultStylingDisabled ? {} : this.getStyles();
+	      var preview = this.props.displayPreview ? _react.React.createElement(
+	        'div',
+	        { className: classes.preview },
+	        _react.React.createElement(
+	          'div',
+	          { style: styles.emptyPreview },
+	          _react.React.createElement(
+	            'h2',
+	            null,
+	            'Empty'
+	          )
+	        )
+	      ) : undefined;
 	      return _react.React.createElement(
 	        'div',
 	        { className: classes.outer, styles: styles.outer },
-	        _react.React.createElement('textarea', { ref: function ref(textarea) {
+	        _react.React.createElement('textarea', { className: classes.cmeditor, ref: function ref(textarea) {
 	            return _this2.textArea = textarea;
-	          }, id: '', cols: '30', rows: '10' })
+	          }, id: '' }),
+	        preview
 	      );
 	    }
 	  }]);
@@ -127,11 +148,19 @@
 	}(_react.React.Component);
 
 	MarkdownEditor.propTypes = {
-	  defaultStylingDisabled: _react.React.PropTypes.bool
+	  codeMirrorOptions: _react.React.PropTypes.object,
+	  defaultStylingDisabled: _react.React.PropTypes.bool,
+	  displayPreview: _react.React.PropTypes.bool,
+	  outerClasses: _react.React.PropTypes.arrayOf(_react.React.PropTypes.string),
+	  previewClasses: _react.React.PropTypes.arrayOf(_react.React.PropTypes.string)
 	};
 
 	MarkdownEditor.defaultProps = {
-	  defaultStylingDisabled: false
+	  defaultStylingDisabled: false,
+	  codeMirrorOptions: {},
+	  displayPreview: true,
+	  outerClasses: [''],
+	  previewClasses: ['']
 	};
 
 /***/ },
