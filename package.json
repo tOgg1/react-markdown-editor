@@ -1,0 +1,35 @@
+{
+  "name": "react-markdown-editor",
+  "version": "0.0.1",
+  "description": "A simple react markdown editor component, emplying markdown-it and codemirror",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tOgg1/react-markdown-editor.git"
+  },
+  "author": "Tormod Haugland",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tOgg1/react-markdown-editor/issues"
+  },
+  "homepage": "https://github.com/tOgg1/react-markdown-editor#readme",
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.9",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "eslint": "^3.12.1",
+    "eslint-config-google": "^0.7.1",
+    "eslint-plugin-react": "^6.8.0",
+    "webpack": "^1.14.0"
+  },
+  "dependencies": {
+    "codemirror": "^5.21.0",
+    "markdown-it": "^8.2.1",
+    "react": "^15.4.1"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "google",
+    "plugin:react/all"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "ecmaFeatures": {
+    "modules": true,
+    "jsx": true
+  },
+  "installedESLint": true,
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "indent": [2, 2],
+    "react/jsx-indent": [2, 2],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"]}],
+    "react/require-optimization": [0],
+    "react/prefer-stateless-function": [0],
+    "react/jsx-no-literals": 0,
+    "react/jsx-closing-bracket-location": 0,
+    "react/jsx-max-props-per-line": 0,
+    "react/jsx-sort-props": 0,
+    "react/jsx-no-bind": 0,
+    "react/forbid-prop-types": 0,
+    "react/sort-prop-types": 0,
+    "max-len": [2, 120],
+    "require-jsdoc": 0,
+    "new-cap": 0,
+    "no-else-return": 0
+  }
+}
